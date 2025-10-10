@@ -1,0 +1,536 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+body {
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background-color: #1E1E1E;
+    color: #F8F7F9;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    overflow-x: auto;
+    overflow-y: auto;
+}
+
+/* Main Desktop Frame - 1440x1024px */
+.desktop-frame {
+    width: 1440px;
+    height: 1024px;
+    background-color: #1E1E1E;
+    position: relative;
+    margin: 0;
+    flex-shrink: 0;
+}
+
+/* Frame 6 - Navigation and Auth */
+.frame-6 {
+    position: absolute;
+    left: 649px;
+    top: 27px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 64px;
+    width: fit-content;
+    height: fit-content;
+    z-index: 20;
+}
+
+/* Frame 4 - Navigation Menu */
+.frame-4 {
+    display: flex;
+    flex-direction: row;
+    gap: 48px;
+    width: fit-content;
+    height: fit-content;
+}
+
+.nav-item {
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.5em;
+    color: #F8F7F9;
+    text-align: left;
+    vertical-align: top;
+    width: fit-content;
+    height: fit-content;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.nav-item:hover {
+    opacity: 0.8;
+}
+
+/* Frame 5 - Auth Buttons */
+.frame-5 {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    padding: 10px;
+    width: 263px;
+    height: fit-content;
+    align-items: center;
+    justify-content: center;
+}
+
+.line-1 {
+    width: 0;
+    height: 24px;
+    border-left: 1px solid #F8F7F9;
+}
+
+.login-text {
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.5em;
+    color: #FFFFFF;
+    text-align: left;
+    vertical-align: top;
+    width: fit-content;
+    height: fit-content;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.login-text:hover {
+    opacity: 0.8;
+}
+
+.register-text {
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.5em;
+    color: #FFFFFF;
+    text-align: left;
+    vertical-align: top;
+    width: fit-content;
+    height: fit-content;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.register-text:hover {
+    opacity: 0.8;
+}
+
+/* Frame 1 - Logo Section */
+.frame-1 {
+    position: absolute;
+    left: 66px;
+    top: 14px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    padding: 32px 64px;
+    width: fit-content;
+    height: fit-content;
+    z-index: 20;
+}
+
+.vajra-text {
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 1.5em;
+    color: #F8F7F9;
+    text-align: left;
+    vertical-align: top;
+    width: fit-content;
+    height: fit-content;
+}
+
+/* OUR TEAM Title */
+.our-team-title {
+    position: absolute;
+    left: 594px;
+    top: 111px;
+    width: 680px;
+    height: 150px;
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 1.5em;
+    color: #FFFFFF;
+    text-align: left;
+    vertical-align: top;
+    z-index: 15;
+}
+
+/* Team Member Images */
+.ellipse-1 {
+    position: absolute;
+    left: 137px;
+    top: 226px;
+    width: 194px;
+    height: 189px;
+    background-image: url('assets/anamiika-kumari.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    z-index: 10;
+}
+
+.ellipse-2 {
+    position: absolute;
+    left: 452px;
+    top: 221px;
+    width: 197px;
+    height: 194px;
+    background-image: url('assets/harsh-raj.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    z-index: 10;
+}
+
+.ellipse-3 {
+    position: absolute;
+    left: 822px;
+    top: 226px;
+    width: 190px;
+    height: 189px;
+    background-image: url('assets/abhiraj-chauhan.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    z-index: 10;
+}
+
+.ellipse-4 {
+    position: absolute;
+    left: 1149px;
+    top: 226px;
+    width: 195px;
+    height: 190px;
+    background-image: url('assets/arpita-patra.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    z-index: 10;
+}
+
+/* Team Member Names */
+.anamiika-name {
+    position: absolute;
+    left: 130px;
+    top: 437px;
+    width: 213px;
+    height: 36px;
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 1.5em;
+    color: #FFFFFF;
+    text-align: center;
+    vertical-align: top;
+    z-index: 15;
+}
+
+.harsh-name {
+    position: absolute;
+    left: 1186px;
+    top: 427px;
+    width: 213px;
+    height: 36px;
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 1.5em;
+    color: #FFFFFF;
+    text-align: center;
+    vertical-align: top;
+    z-index: 15;
+}
+
+.abhiraj-name {
+    position: absolute;
+    left: 452px;
+    top: 437px;
+    width: 221px;
+    height: 36px;
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 1.5em;
+    color: #FFFFFF;
+    text-align: center;
+    vertical-align: top;
+    z-index: 15;
+}
+
+.arpita-name {
+    position: absolute;
+    left: 841px;
+    top: 445px;
+    width: 213px;
+    height: 36px;
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 1.5em;
+    color: #FFFFFF;
+    text-align: center;
+    vertical-align: top;
+    z-index: 15;
+}
+
+/* CONNECT WITH US Title */
+.connect-title {
+    position: absolute;
+    left: 484px;
+    top: 545px;
+    width: 464px;
+    height: 89px;
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 1.5em;
+    color: #FFFFFF;
+    text-align: center;
+    vertical-align: top;
+    z-index: 15;
+}
+
+/* Contact Information */
+.contact-info {
+    position: absolute;
+    left: 107px;
+    top: 650px;
+    width: 1270px;
+    height: 324px;
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 1.5em;
+    color: #FFFFFF;
+    text-align: left;
+    vertical-align: top;
+    z-index: 15;
+}
+
+/* Rectangle 8 - Logo Image */
+.rectangle-8 {
+    position: absolute;
+    left: 25px;
+    top: 22px;
+    width: 82px;
+    height: 89px;
+    background-image: url('assets/logo.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 25;
+}
+
+/* Responsive Design */
+@media (max-width: 1440px) {
+    .desktop-frame {
+        width: 100vw;
+        height: 100vh;
+        max-width: 1440px;
+        transform: scale(calc(100vw / 1440));
+        transform-origin: top center;
+    }
+}
+
+@media (min-width: 1441px) {
+    .desktop-frame {
+        transform: scale(1);
+    }
+}
+
+/* Desktop fitting for screens larger than 1440px */
+@media (min-width: 1441px) and (max-width: 1920px) {
+    .desktop-frame {
+        transform: scale(calc(100vw / 1440));
+        transform-origin: top center;
+    }
+}
+
+@media (min-width: 1921px) {
+    .desktop-frame {
+        transform: scale(1.2);
+        transform-origin: top center;
+    }
+}
+
+@media (max-width: 768px) {
+    .desktop-frame {
+        transform: none;
+        width: 100vw;
+        height: auto;
+        min-height: 100vh;
+    }
+    
+    .frame-1 {
+        position: static;
+        justify-content: center;
+        padding: 20px;
+    }
+    
+    .frame-6 {
+        position: static;
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+    }
+    
+    .frame-4 {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+    }
+    
+    .our-team-title {
+        position: static;
+        width: 100%;
+        height: auto;
+        padding: 20px;
+        font-size: 36px;
+        text-align: center;
+    }
+    
+    .ellipse-1, .ellipse-2, .ellipse-3, .ellipse-4 {
+        position: static;
+        width: 150px;
+        height: 150px;
+        margin: 20px auto;
+        display: block;
+    }
+    
+    .anamiika-name, .harsh-name, .abhiraj-name, .arpita-name {
+        position: static;
+        width: 100%;
+        height: auto;
+        margin: 10px 0;
+        text-align: center;
+    }
+    
+    .connect-title {
+        position: static;
+        width: 100%;
+        height: auto;
+        padding: 20px;
+        font-size: 36px;
+        text-align: center;
+    }
+    
+    .contact-info {
+        position: static;
+        width: 100%;
+        height: auto;
+        padding: 20px;
+        font-size: 18px;
+        text-align: center;
+    }
+    
+    .rectangle-8 {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .our-team-title, .connect-title {
+        font-size: 28px;
+    }
+    
+    .contact-info {
+        font-size: 16px;
+    }
+    
+    .frame-5 {
+        width: auto;
+        flex-direction: column;
+        gap: 16px;
+    }
+    
+    .line-1 {
+        display: none;
+    }
+    
+    .ellipse-1, .ellipse-2, .ellipse-3, .ellipse-4 {
+        width: 120px;
+        height: 120px;
+    }
+}
+
+/* Smooth Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.our-team-title {
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.ellipse-1, .ellipse-2, .ellipse-3, .ellipse-4 {
+    animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+.connect-title {
+    animation: fadeInUp 0.8s ease-out 0.4s both;
+}
+
+.contact-info {
+    animation: fadeInUp 0.8s ease-out 0.6s both;
+}
+
+/* Hover Effects */
+.nav-item,
+.login-text,
+.register-text {
+    position: relative;
+}
+
+.nav-item::after,
+.login-text::after,
+.register-text::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #F8F7F9;
+    transition: width 0.3s ease;
+}
+
+.nav-item:hover::after,
+.login-text:hover::after,
+.register-text:hover::after {
+    width: 100%;
+}
+
+/* Team member hover effects */
+.ellipse-1:hover,
+.ellipse-2:hover,
+.ellipse-3:hover,
+.ellipse-4:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+}
