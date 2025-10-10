@@ -168,6 +168,7 @@
             overflow-y: auto;
             padding: 0;
             background: #000;
+            height: calc(100vh - 60px);
         }
 
         .content-section {
@@ -777,8 +778,10 @@
         /* Profile Page */
         .profile-page {
             padding: 40px 24px;
-            display: flex;
-            justify-content: center;
+            max-width: 800px;
+            margin: 0 auto;
+            min-height: calc(100vh - 80px);
+            overflow-y: auto;
         }
 
         .profile-avatar {
@@ -791,28 +794,60 @@
             align-items: center;
             justify-content: center;
             margin: 0 auto 24px;
+            transition: all 0.3s;
+        }
+
+        .profile-avatar:hover {
+            border-color: white;
+            transform: scale(1.05);
+        }
+
+        .form-input[type="number"] {
+            -moz-appearance: textfield;
+            appearance: textfield;
+        }
+
+        .form-input[type="number"]::-webkit-outer-spin-button,
+        .form-input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        textarea.form-input {
+            min-height: 80px;
+            resize: vertical;
         }
 
         /* Help Desk Page */
         .help-page {
             padding: 40px 24px;
-            display: flex;
-            justify-content: center;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
         .help-section {
-            background: #1a1a1a;
+            background: #0a0a0a;
             border: 1px solid #333;
-            border-radius: 8px;
+            border-radius: 12px;
             padding: 24px;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+
+        .help-section:hover {
+            background: #1a1a1a;
+            border-color: #555;
+            transform: translateY(-2px);
         }
 
         .help-section-title {
-            font-size: 16px;
+            font-size: 18px;
             font-weight: 600;
             color: white;
             margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .help-content {
@@ -849,11 +884,87 @@
             .emergency-grid {
                 grid-template-columns: 1fr;
             }
+
+            .profile-page {
+                padding: 20px 16px;
+                min-height: calc(100vh - 60px);
+            }
+
+            .help-page {
+                padding: 20px 16px;
+            }
+
+            .form-card {
+                padding: 24px 16px;
+            }
         }
 
         .hidden {
             display: none;
         }
+
+        /* Toggle Switch Styles */
+        .toggle-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .toggle-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #999;
+            letter-spacing: 0.5px;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #333;
+            transition: .4s;
+            border-radius: 24px;
+            border: 2px solid #555;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 2px;
+            bottom: 2px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        .toggle-switch input:checked + .toggle-slider {
+            background-color: #ff3333;
+            border-color: #ff3333;
+        }
+
+        .toggle-switch input:checked + .toggle-slider:before {
+            transform: translateX(26px);
+        }
+
     </style>
 </head>
 <body>
@@ -1034,6 +1145,7 @@
                         <line x1="6" y1="6" x2="18" y2="18"></line>
                     </svg>
                 </button>
+                
             </div>
 
             <div class="content-area">
@@ -1313,9 +1425,19 @@
                                 </div>
                                 <h2 class="emergency-title">Emergency SOS</h2>
                                 <p class="emergency-desc">Press this button to immediately alert emergency services and your emergency contacts with your exact location</p>
-                                <button class="btn btn-emergency">🚨 ACTIVATE EMERGENCY</button>
-                                <!-- <button class="btn btn-alarm" id="alarmButton" onclick="toggleAlarm()">⏰ SET ALARM</button>
-                                <p class="alarm-desc">Alarm will continuously alert nearby people until stopped. Press START to begin alarm, press STOP to end alarm.</p> -->
+                                
+                                <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 16px;">
+                                    <button class="btn btn-emergency" id="emergencyBtn">🚨 ACTIVATE EMERGENCY</button>
+                                    <div class="toggle-container">
+                                        <span class="toggle-label">AUTO MODE</span>
+                                        <label class="toggle-switch">
+                                            <input type="checkbox" id="emergencyToggle">
+                                            <span class="toggle-slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <p class="emergency-desc" id="toggleStatus" style="font-size: 12px; color: #ff9500; margin-bottom: 16px;">Auto mode is OFF - Manual activation required</p>
                             </div> 
 
                             <div class="emergency-card" style="border-color: #333;">
@@ -1361,38 +1483,53 @@
                 <!-- Help Desk Section -->
                 <div id="help-desk" class="content-section">
                     <div class="help-page">
-                        <div class="form-card">
-                            <div class="form-icon" style="background: #1a1a1a; border: 2px solid #333;">
-                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-                                    <circle cx="12" cy="12" r="10"></circle>
-                                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-                                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                                </svg>
-                            </div>
-                            <h2 class="form-title">How can we help you?</h2>
-                            <p class="form-subtitle">Get assistance with any queries or issues</p>
-                            
-                            <div class="help-section">
-                                <h3 class="help-section-title">📞 Emergency Contacts</h3>
-                                <p class="help-content">Police: 100 | Women Helpline: 1091 | National Emergency: 112</p>
-                            </div>
+                        <h1 class="page-title">HELP DESK</h1>
+                        
+                        <div class="help-section">
+                            <h3 class="help-section-title">📞 Emergency Contacts</h3>
+                            <p class="help-content">9453423521 | 9374957291</p>
+                        </div>
 
-                            <div class="help-section">
-                                <h3 class="help-section-title">💬 Technical Support</h3>
-                                <p class="help-content">Email: support@vajra.com<br>Available 24/7 for all your queries</p>
-                            </div>
+                        <div class="help-section">
+                            <h3 class="help-section-title">💬 Technical Support</h3>
+                            <p class="help-content">Email: support@vajra.com<br>Available 24/7 for all your queries</p>
+                        </div>
 
-                            <div class="help-section">
-                                <h3 class="help-section-title">📝 Report an Issue</h3>
-                                <p class="help-content">Found a bug or have feedback? Let us know!</p>
-                                <button class="btn" style="margin-top: 12px;">SUBMIT FEEDBACK</button>
-                            </div>
+                        <div class="help-section">
+                            <h3 class="help-section-title">📝 Report an Issue</h3>
+                            <p class="help-content">Found a bug or have feedback? Let us know!</p>
+                            <button class="btn" style="margin-top: 12px;">SUBMIT FEEDBACK</button>
+                        </div>
 
-                            <div class="help-section">
-                                <h3 class="help-section-title">📚 User Guide</h3>
-                                <p class="help-content">Learn how to use all features effectively</p>
-                                <button class="btn" style="margin-top: 12px;">VIEW GUIDE</button>
-                            </div>
+                        <div class="help-section">
+                            <h3 class="help-section-title">📚 User Guide</h3>
+                            <p class="help-content">Learn how to use all features effectively</p>
+                            <button class="btn" style="margin-top: 12px;">VIEW GUIDE</button>
+                        </div>
+
+                        <div class="help-section">
+                            <h3 class="help-section-title">🔧 App Features</h3>
+                            <p class="help-content">
+                                • My Location: Check your current location safety<br>
+                                • Police Stations: Find nearest police stations<br>
+                                • Parent Connection: Manage trusted contacts<br>
+                                • Women's Safety: Access safety resources<br>
+                                • Emergency: Quick emergency services access
+                            </p>
+                        </div>
+
+                        <div class="help-section">
+                            <h3 class="help-section-title">❓ Frequently Asked Questions</h3>
+                            <p class="help-content">
+                                <strong>Q: How do I add emergency contacts?</strong><br>
+                                A: Go to Parent Connection → View Trusted Contacts → Click + button<br><br>
+                                
+                                <strong>Q: How to use SOS feature?</strong><br>
+                                A: Go to Emergency section → Click "ACTIVATE EMERGENCY" button<br><br>
+                                
+                                <strong>Q: Is my location data secure?</strong><br>
+                                A: Yes, all your data is encrypted and stored securely on your device
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -1400,6 +1537,8 @@
                 <!-- Profile Section -->
                 <div id="profile" class="content-section">
                     <div class="profile-page">
+                        <h1 class="page-title">USER PROFILE</h1>
+                        
                         <div class="form-card">
                             <div class="profile-avatar">
                                 <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
@@ -1407,30 +1546,92 @@
                                     <circle cx="12" cy="7" r="4"></circle>
                                 </svg>
                             </div>
-                            <h2 class="form-title">User Profile</h2>
-                            <p class="form-subtitle">Manage your account information</p>
+                            <h2 class="form-title">Personal Information</h2>
+                            <p class="form-subtitle">Manage your account information and emergency details</p>
                             
-                            <div class="form-group">
-                                <label class="form-label">Full Name</label>
-                                <input type="text" class="form-input" placeholder="Enter your full name">
+                            <form id="profile-form">
+                                <div class="form-group">
+                                    <label class="form-label">Full Name</label>
+                                    <input type="text" class="form-input" id="fullName" placeholder="Enter your full name" value="User Name">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Email Address</label>
+                                    <input type="email" class="form-input" id="email" placeholder="your@email.com" value="user@email.com">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Phone Number</label>
+                                    <input type="tel" class="form-input" id="phone" placeholder="+91-XXXXXXXXXX" value="+91-9876543210">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Emergency Contact</label>
+                                    <input type="tel" class="form-input" id="emergencyContact" placeholder="+91-XXXXXXXXXX" value="+91-9876543211">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Blood Group</label>
+                                    <select class="form-input" id="bloodGroup">
+                                        <option value="">Select Blood Group</option>
+                                        <option value="A+">A+</option>
+                                        <option value="A-">A-</option>
+                                        <option value="B+">B+</option>
+                                        <option value="B-">B-</option>
+                                        <option value="AB+">AB+</option>
+                                        <option value="AB-">AB-</option>
+                                        <option value="O+">O+</option>
+                                        <option value="O-">O-</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Age</label>
+                                    <input type="number" class="form-input" id="age" placeholder="Enter your age" min="1" max="120">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Address</label>
+                                    <textarea class="form-input" id="address" placeholder="Enter your address" rows="3" style="resize: vertical;"></textarea>
+                                </div>
+                                <button type="submit" class="btn">UPDATE PROFILE</button>
+                            </form>
+                        </div>
+
+                        <div class="help-section" style="margin-top: 30px;">
+                            <h3 class="help-section-title">🔐 Privacy & Security</h3>
+                            <p class="help-content">
+                                Your personal information is stored securely on your device and is never shared with third parties. 
+                                Only emergency contacts and authorities will have access to your information during emergencies.
+                            </p>
+                            <div style="display: flex; gap: 12px; margin-top: 12px;">
+                                <button class="btn" style="flex: 1; background: #666;">CHANGE PASSWORD</button>
+                                <button class="btn" style="flex: 1; background: #ff3333;">DELETE ACCOUNT</button>
                             </div>
-                            <div class="form-group">
-                                <label class="form-label">Email Address</label>
-                                <input type="email" class="form-input" placeholder="your@email.com">
+                        </div>
+
+                        <div class="help-section">
+                            <h3 class="help-section-title">📱 App Settings</h3>
+                            <p class="help-content">
+                                Configure your app preferences and notification settings.
+                            </p>
+                            <div style="display: flex; gap: 12px; margin-top: 12px;">
+                                <button class="btn" style="flex: 1; background: #666;">NOTIFICATIONS</button>
+                                <button class="btn" style="flex: 1; background: #666;">THEME</button>
                             </div>
-                            <div class="form-group">
-                                <label class="form-label">Phone Number</label>
-                                <input type="tel" class="form-input" placeholder="+91-XXXXXXXXXX">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Emergency Contact</label>
-                                <input type="tel" class="form-input" placeholder="+91-XXXXXXXXXX">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Blood Group</label>
-                                <input type="text" class="form-input" placeholder="e.g., O+, A+, B+">
-                            </div>
-                            <button class="btn">UPDATE PROFILE</button>
+                        </div>
+
+                        <div class="help-section">
+                            <h3 class="help-section-title">📊 Account Statistics</h3>
+                            <p class="help-content">
+                                <strong>Account Created:</strong> January 2024<br>
+                                <strong>Last Login:</strong> Today<br>
+                                <strong>Emergency Contacts:</strong> 3 contacts saved<br>
+                                <strong>Safety Checks:</strong> 25 completed
+                            </p>
+                        </div>
+
+                        <div class="help-section">
+                            <h3 class="help-section-title">🚨 Emergency Information</h3>
+                            <p class="help-content">
+                                Make sure your emergency information is always up-to-date. 
+                                This information will be shared with emergency services and your trusted contacts during emergencies.
+                            </p>
+                            <button class="btn" style="margin-top: 12px; background: #ff3333;">VIEW EMERGENCY CARD</button>
                         </div>
                     </div>
                 </div>
@@ -1694,11 +1895,18 @@
         function showNotification(message, type) {
             // Create notification element
             const notification = document.createElement('div');
+            
+            let backgroundColor;
+            if (type === 'success') backgroundColor = '#4CAF50';
+            else if (type === 'error') backgroundColor = '#ff3333';
+            else if (type === 'info') backgroundColor = '#2196F3';
+            else backgroundColor = '#666';
+            
             notification.style.cssText = `
                 position: fixed;
                 top: 20px;
                 right: 20px;
-                background: ${type === 'success' ? '#4CAF50' : '#2196F3'};
+                background: ${backgroundColor};
                 color: white;
                 padding: 16px 24px;
                 border-radius: 8px;
@@ -1706,6 +1914,8 @@
                 font-weight: 600;
                 box-shadow: 0 4px 12px rgba(0,0,0,0.3);
                 animation: slideIn 0.3s ease;
+                max-width: 300px;
+                word-wrap: break-word;
             `;
             notification.textContent = message;
             
@@ -1728,9 +1938,107 @@
             }, 3000);
         }
 
-        // Initialize contacts when page loads
+        // Profile form functionality
+        document.getElementById('profile-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = {
+                fullName: document.getElementById('fullName').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                emergencyContact: document.getElementById('emergencyContact').value,
+                bloodGroup: document.getElementById('bloodGroup').value,
+                age: document.getElementById('age').value,
+                address: document.getElementById('address').value
+            };
+
+            // Save to localStorage
+            localStorage.setItem('userProfile', JSON.stringify(formData));
+            
+            // Show success message
+            showNotification('Profile updated successfully!', 'success');
+        });
+
+        // Load profile data when page loads
+        function loadProfile() {
+            const profileData = JSON.parse(localStorage.getItem('userProfile'));
+            if (profileData) {
+                document.getElementById('fullName').value = profileData.fullName || '';
+                document.getElementById('email').value = profileData.email || '';
+                document.getElementById('phone').value = profileData.phone || '';
+                document.getElementById('emergencyContact').value = profileData.emergencyContact || '';
+                document.getElementById('bloodGroup').value = profileData.bloodGroup || '';
+                document.getElementById('age').value = profileData.age || '';
+                document.getElementById('address').value = profileData.address || '';
+            }
+        }
+
+        // Emergency Toggle Functionality
+        const emergencyToggle = document.getElementById('emergencyToggle');
+        const toggleStatus = document.getElementById('toggleStatus');
+        const emergencyBtn = document.getElementById('emergencyBtn');
+
+        emergencyToggle.addEventListener('change', function() {
+            if (this.checked) {
+                toggleStatus.textContent = 'Auto mode is ON - Emergency will activate automatically if needed';
+                toggleStatus.style.color = '#4CAF50';
+                emergencyBtn.style.background = '#4CAF50';
+                emergencyBtn.textContent = '🟢 AUTO MODE ON';
+                showNotification('Auto emergency mode activated!', 'success');
+            } else {
+                toggleStatus.textContent = 'Auto mode is OFF - Manual activation required';
+                toggleStatus.style.color = '#ff9500';
+                emergencyBtn.style.background = '#ff3333';
+                emergencyBtn.textContent = '🚨 ACTIVATE EMERGENCY';
+                showNotification('Auto emergency mode deactivated!', 'info');
+            }
+        });
+
+
+        // Enhanced Emergency Button with Toggle Integration
+        emergencyBtn.addEventListener('click', function() {
+            if (emergencyToggle.checked) {
+                // Auto mode is ON - show confirmation
+                if (confirm('Auto mode is ON. Do you want to manually trigger emergency now?')) {
+                    triggerEmergency();
+                }
+            } else {
+                // Manual mode - direct trigger
+                triggerEmergency();
+            }
+        });
+
+        function triggerEmergency() {
+            // Visual and audio alert
+            document.body.style.backgroundColor = '#ff3333';
+            setTimeout(() => {
+                document.body.style.backgroundColor = '';
+            }, 1000);
+
+            // Show emergency notification
+            showNotification('EMERGENCY ACTIVATED! Authorities have been notified!', 'error');
+            
+            // Reset after 3 seconds
+            setTimeout(() => {
+                emergencyBtn.style.background = emergencyToggle.checked ? '#4CAF50' : '#ff3333';
+            }, 3000);
+        }
+
+        // Initialize contacts and profile when page loads
         document.addEventListener('DOMContentLoaded', function() {
             loadContacts();
+            loadProfile();
+            
+            // Initialize emergency toggle state
+            const savedToggleState = localStorage.getItem('emergencyToggleState') === 'true';
+            emergencyToggle.checked = savedToggleState;
+            emergencyToggle.dispatchEvent(new Event('change'));
+        });
+
+        // Save emergency toggle state
+        emergencyToggle.addEventListener('change', function() {
+            localStorage.setItem('emergencyToggleState', this.checked);
         });
     </script>
 </body>

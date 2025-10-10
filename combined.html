@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VAJRA - Your Safety, Our Priority</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+        }
+
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #1E1E1E;
+            color: #F8F7F9;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Main Container */
+        .main-container {
+            width: 100%;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Static Header/Navbar */
+        .static-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(30, 30, 30, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 15px 0;
+        }
+
+        .header-content {
+            max-width: 1440px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+        }
+
+        /* Logo Section */
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-image {
+            width: 60px;
+            height: 60px;
+            background-image: url('assets/logo.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .vajra-text {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 24px;
+            color: #F8F7F9;
+        }
+
+        /* Navigation */
+        .nav-section {
+            display: flex;
+            align-items: center;
+            gap: 64px;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 48px;
+        }
+
+        .nav-item {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 400;
+            font-size: 18px;
+            color: #F8F7F9;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 8px 0;
+        }
+
+        .nav-item:hover {
+            opacity: 0.8;
+        }
+
+        .nav-item.active {
+            color: #FFFFFF;
+            font-weight: 600;
+        }
+
+        .nav-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #F8F7F9;
+            transition: width 0.3s ease;
+        }
+
+        .nav-item:hover::after,
+        .nav-item.active::after {
+            width: 100%;
+        }
+
+        /* Auth Buttons */
+        .auth-section {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+        }
+
+        .auth-divider {
+            width: 1px;
+            height: 24px;
+            background-color: #F8F7F9;
+        }
+
+        .auth-btn {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 400;
+            font-size: 18px;
+            color: #FFFFFF;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 8px 16px;
+            border-radius: 8px;
+        }
+
+        .auth-btn:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Content Area */
+        .content-area {
+            margin-top: 90px;
+            width: 100%;
+        }
+
+        .page-section {
+            display: none;
+            min-height: calc(100vh - 90px);
+            padding: 40px 0;
+        }
+
+        .page-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Home Page Styles */
+        .home-container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            align-items: center;
+            min-height: calc(100vh - 90px);
+            gap: 60px;
+        }
+
+        .home-content {
+            flex: 1;
+            z-index: 10;
+        }
+
+        .hero-title {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 96px;
+            line-height: 1em;
+            color: #F8F7F9;
+            margin-bottom: 24px;
+        }
+
+        .hero-description {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 400;
+            font-size: 24px;
+            line-height: 1.5em;
+            color: #FFFFFF;
+            margin-bottom: 32px;
+            max-width: 600px;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            padding: 16px 32px;
+            border: 2px solid #F8F7F9;
+            border-radius: 16px;
+            background: transparent;
+            color: #F8F7F9;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .cta-button:hover {
+            background-color: #F8F7F9;
+            color: #1E1E1E;
+            transform: translateY(-2px);
+        }
+
+        .home-image {
+            flex: 1;
+            height: 600px;
+            background-image: url('assets/hero-image-588f26.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border-radius: 200px 0px 0px 0px;
+        }
+
+        /* About Page Styles */
+        .about-container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            align-items: center;
+            min-height: calc(100vh - 90px);
+            gap: 60px;
+        }
+
+        .about-content {
+            flex: 1;
+            z-index: 10;
+        }
+
+        .about-description {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 400;
+            font-size: 32px;
+            line-height: 1.5em;
+            color: #F8F7F9;
+        }
+
+        .about-image {
+            flex: 1;
+            height: 600px;
+            background-image: url('assets/whatsapp-image.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border-radius: 100px;
+        }
+
+        /* How It Works Page Styles */
+        .how-it-works-container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 40px;
+            min-height: calc(100vh - 90px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .how-it-works-title {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+            font-size: 64px;
+            line-height: 1.2em;
+            color: #FFFFFF;
+            margin-bottom: 40px;
+            z-index: 15;
+        }
+
+        .how-it-works-image {
+            width: 100%;
+            height: 600px;
+            background-image: url('assets/log-image.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border-radius: 20px;
+        }
+
+        /* Contact Page Styles */
+        .contact-container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 40px;
+            min-height: calc(100vh - 90px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .our-team-title {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 64px;
+            line-height: 1.2em;
+            color: #FFFFFF;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .team-members {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 60px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .team-member {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .member-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transition: transform 0.3s ease;
+        }
+
+        .member-image:hover {
+            transform: scale(1.05);
+        }
+
+        .member-name {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 400;
+            font-size: 20px;
+            color: #FFFFFF;
+            text-align: center;
+        }
+
+        .connect-title {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 48px;
+            line-height: 1.2em;
+            color: #FFFFFF;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .contact-info {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 400;
+            font-size: 20px;
+            line-height: 1.5em;
+            color: #FFFFFF;
+            text-align: center;
+            max-width: 800px;
+        }
+
+        /* Login Page Styles */
+        .login-container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 40px;
+            min-height: calc(100vh - 90px);
+            display: flex;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .login-image {
+            flex: 1;
+            height: 600px;
+            background-image: url('assets/login-background.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border-radius: 60px;
+            box-shadow: inset 0px -178px 85px -5px rgba(0, 0, 0, 0.55);
+        }
+
+        .login-form-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px;
+        }
+
+        .login-logo {
+            width: 80px;
+            height: 80px;
+            background-image: url('assets/logo.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            margin-bottom: 20px;
+        }
+
+        .login-title {
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 64px;
+            color: #FFFFFF;
+            margin-bottom: 40px;
+        }
+
+        .form-group {
+            width: 100%;
+            max-width: 400px;
+            margin-bottom: 20px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(50px);
+            color: #F2F2F2;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: rgba(136, 116, 255, 0.8);
+            box-shadow: 0px 6px 30px -5px rgba(136, 116, 255, 0.3);
+        }
+
+        .form-input::placeholder {
+            color: #F2F2F2;
+        }
+
+        .login-button {
+            width: 100%;
+            max-width: 400px;
+            padding: 15px;
+            background-color: #3D02BC;
+            border: none;
+            border-radius: 8px;
+            color: #FFFFFF;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .login-button:hover {
+            background-color: #4A0BC7;
+            transform: translateY(-2px);
+            box-shadow: 0px 6px 30px -5px rgba(61, 2, 188, 0.4);
+        }
+
+        .auth-link {
+            color: #FFFFFF;
+            text-decoration: none;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 16px;
+            transition: opacity 0.3s ease;
+        }
+
+        .auth-link:hover {
+            opacity: 0.8;
+        }
+
+        /* Signup Page Styles */
+        .signup-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 40px;
+            min-height: calc(100vh - 90px);
+            display: flex;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .signup-image {
+            flex: 1;
+            height: 600px;
+            background-image: url('assets/signup-background.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border-radius: 60px;
+            box-shadow: inset 0px -178px 85px -5px rgba(0, 0, 0, 0.55);
+        }
+
+        .signup-form-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px;
+        }
+
+        .signup-logo {
+            width: 80px;
+            height: 80px;
+            background-image: url('assets/logo.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            margin-bottom: 20px;
+        }
+
+        .signup-title {
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 64px;
+            color: #FFFFFF;
+            margin-bottom: 40px;
+        }
+
+        .google-signup-text {
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 18px;
+            color: #F6F6F6;
+            margin-bottom: 20px;
+        }
+
+        .google-button {
+            width: 100%;
+            max-width: 400px;
+            padding: 15px;
+            background-color: #FFFFFF;
+            border: none;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+        }
+
+        .google-button:hover {
+            background-color: #F8F8F8;
+            transform: translateY(-2px);
+            box-shadow: 0px 6px 30px -5px rgba(0, 0, 0, 0.2);
+        }
+
+        .google-text {
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            font-size: 16px;
+            color: #1E1E1E;
+        }
+
+        .divider {
+            width: 100%;
+            max-width: 400px;
+            height: 1px;
+            background-color: rgba(125, 125, 125, 0.83);
+            margin: 20px 0;
+        }
+
+        .or-text {
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 14px;
+            color: #FFFFFF;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 0 20px;
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .nav-section {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .nav-menu {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .home-container,
+            .about-container,
+            .login-container,
+            .signup-container {
+                flex-direction: column;
+                padding: 0 20px;
+                gap: 40px;
+            }
+
+            .hero-title {
+                font-size: 48px;
+                text-align: center;
+            }
+
+            .about-description {
+                font-size: 24px;
+                text-align: center;
+            }
+
+            .how-it-works-title,
+            .our-team-title,
+            .connect-title {
+                font-size: 36px;
+            }
+
+            .login-title,
+            .signup-title {
+                font-size: 48px;
+            }
+
+            .team-members {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .home-image,
+            .about-image,
+            .login-image,
+            .signup-image {
+                height: 400px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 36px;
+            }
+
+            .about-description {
+                font-size: 20px;
+            }
+
+            .how-it-works-title,
+            .our-team-title,
+            .connect-title {
+                font-size: 28px;
+            }
+
+            .login-title,
+            .signup-title {
+                font-size: 36px;
+            }
+
+            .contact-info {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <!-- Static Header/Navbar -->
+        <header class="static-header">
+            <div class="header-content">
+                <div class="logo-section">
+                    <div class="logo-image"></div>
+                    <div class="vajra-text">VAJRA</div>
+                </div>
+                
+                <div class="nav-section">
+                    <nav class="nav-menu">
+                        <div class="nav-item active" data-page="home">Home</div>
+                        <div class="nav-item" data-page="about">About</div>
+                        <div class="nav-item" data-page="how-it-works">How it works</div>
+                        <div class="nav-item" data-page="contact">Contacts</div>
+                    </nav>
+                    
+                    <div class="auth-section">
+                        <div class="auth-divider"></div>
+                        <div class="auth-btn" data-page="login">LOGIN</div>
+                        <div class="auth-btn" data-page="signup">REGISTER</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Content Area -->
+        <main class="content-area">
+            <!-- Home Page -->
+            <section id="home" class="page-section active">
+                <div class="home-container">
+                    <div class="home-content">
+                        <h1 class="hero-title">
+                            YOUR<br>
+                            SAFETY,<br>
+                            OUR<br>
+                            PRIORITY
+                        </h1>
+                        <p class="hero-description">
+                            Stay safe and informed—get real-time<br>
+                            crime updates, predictive safest routes,<br>
+                            and instant emergency support with<br>
+                            our advanced security platform
+                        </p>
+                        <button class="cta-button" onclick="navigateToPage('login')">
+                            START YOUR JOURNEY
+                        </button>
+                    </div>
+                    <div class="home-image"></div>
+                </div>
+            </section>
+
+            <!-- About Page -->
+            <section id="about" class="page-section">
+                <div class="about-container">
+                    <div class="about-content">
+                        <div class="about-description">
+                            👋 HEY THERE! I'm your personal safety companion, always on a mission to keep you informed and secure wherever you are.<br><br>
+                            
+                            1. Curious if your area is safe? Just share your location— <i>I'll show you.</i><br><br>
+                            
+                            2. Heading somewhere new? <i>I'll guide you</i> with the safest, crime-free routes.<br><br>
+                            
+                            3. Worried about nearby incidents? Instantly view crime hotspots and the closest police stations right on your map, <i>I'll help you.</i><br><br>
+                            
+                            4. In an emergency? <i>I'll alert you.</i> One tap, and your trusted contacts plus the nearest police station know you need help—fast!<br><br>
+                        </div>
+                    </div>
+                    <div class="about-image"></div>
+                </div>
+            </section>
+
+            <!-- How It Works Page -->
+            <section id="how-it-works" class="page-section">
+                <div class="how-it-works-container">
+                    <h1 class="how-it-works-title">HOW IT WORKS</h1>
+                    <div class="how-it-works-image"></div>
+                </div>
+            </section>
+
+            <!-- Contact Page -->
+            <section id="contact" class="page-section">
+                <div class="contact-container">
+                    <h1 class="our-team-title">OUR TEAM</h1>
+                    
+                    <div class="team-members">
+                        <div class="team-member">
+                            <div class="member-image" style="background-image: url('assets/anamiika-kumari.png');"></div>
+                            <div class="member-name">ANAMIKA KUMARI</div>
+                        </div>
+                        <div class="team-member">
+                            <div class="member-image" style="background-image: url('assets/harsh-raj.png');"></div>
+                            <div class="member-name">HARSH RAJ</div>
+                        </div>
+                        <div class="team-member">
+                            <div class="member-image" style="background-image: url('assets/abhiraj-chauhan.png');"></div>
+                            <div class="member-name">ABHIRAJ SINGH</div>
+                        </div>
+                        <div class="team-member">
+                            <div class="member-image" style="background-image: url('assets/arpita-patra.png');"></div>
+                            <div class="member-name">ARPITA PATRA</div>
+                        </div>
+                    </div>
+
+                    <h2 class="connect-title">CONNECT WITH US</h2>
+                    <div class="contact-info">
+                        Got a question, suggestion, or facing any issue?<br>
+                        I'm ready to support you—just reach out and let's connect!<br>
+                        Your feedback, ideas, and concerns matter—let's make your experience even better together.<br><br>
+                        
+                        Call us at: +91-XXXXXXXXXX<br>
+                        Email us at: contact@yourapp.com<br><br>
+                        
+                        We're just a call or message away!
+                    </div>
+                </div>
+            </section>
+
+            <!-- Login Page -->
+            <section id="login" class="page-section">
+                <div class="login-container">
+                    <div class="login-image"></div>
+                    <div class="login-form-container">
+                        <div class="login-logo"></div>
+                        <h1 class="login-title">Login</h1>
+                        
+                        <div class="form-group">
+                            <input type="text" class="form-input" placeholder="Enter your Username">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-input" placeholder="Password">
+                        </div>
+                        
+                        <button class="login-button">LogIn</button>
+                        
+                        <a href="#" class="auth-link" onclick="navigateToPage('signup')">
+                            Didn't Have An Account ? Sign up
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Signup Page -->
+            <section id="signup" class="page-section">
+                <div class="signup-container">
+                    <div class="signup-image"></div>
+                    <div class="signup-form-container">
+                        <div class="signup-logo"></div>
+                        <h1 class="signup-title">Sign Up</h1>
+                        
+                        <div class="google-signup-text">Sign up with your Google Account</div>
+                        <button class="google-button">
+                            <img src="assets/google-icon.png" alt="Google" width="20" height="20">
+                            <span class="google-text">Google</span>
+                        </button>
+                        
+                        <div class="divider"></div>
+                        <div class="or-text">Or continue with phone number/ Email ID</div>
+                        
+                        <div class="form-group">
+                            <input type="text" class="form-input" placeholder="Name">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-input" placeholder="Phone number/Email ID">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-input" placeholder="Create Username">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-input" placeholder="Password">
+                        </div>
+                        
+                        <button class="login-button">Sign up</button>
+                        
+                        <a href="#" class="auth-link" onclick="navigateToPage('login')">
+                            Already a user? Log in
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Navigation functionality
+        function navigateToPage(pageId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.page-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Show selected section
+            const targetSection = document.getElementById(pageId);
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
+
+            // Update active nav item
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Find and activate the corresponding nav item
+            const activeNavItem = document.querySelector(`[data-page="${pageId}"]`);
+            if (activeNavItem) {
+                activeNavItem.classList.add('active');
+            }
+
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Add click event listeners to all navigation items
+        document.addEventListener('DOMContentLoaded', function() {
+            // Nav menu items
+            const navItems = document.querySelectorAll('.nav-item[data-page]');
+            navItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const pageId = this.getAttribute('data-page');
+                    navigateToPage(pageId);
+                });
+            });
+
+            // Auth buttons
+            const authBtns = document.querySelectorAll('.auth-btn[data-page]');
+            authBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const pageId = this.getAttribute('data-page');
+                    navigateToPage(pageId);
+                });
+            });
+
+            // Form submissions (basic handling)
+            const loginButton = document.querySelector('#login .login-button');
+            if (loginButton) {
+                loginButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    // Redirect to dashboard
+                    window.location.href = 'dash.html';
+                });
+            }
+
+            const signupButton = document.querySelector('#signup .login-button');
+            if (signupButton) {
+                signupButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    // Redirect to dashboard
+                    window.location.href = 'dash.html';
+                });
+            }
+
+            const googleButton = document.querySelector('.google-button');
+            if (googleButton) {
+                googleButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    // Redirect to dashboard
+                    window.location.href = 'dash.html';
+                });
+            }
+        });
+
+        // Smooth scrolling for better UX
+        function smoothScrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+</body>
+</html>
